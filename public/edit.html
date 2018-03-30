@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit | Servidor node</title>
+	<link rel="stylesheet" href="/assets/bootstrap.min.css">
+	<link href="/assets/video-js.min.css" rel="stylesheet">
+	<style>
+		html,body{ height: 100% }
+		.video-js {
+		    position: relative ;
+		    width: 100% ;
+		    /*height: auto !important;*/
+		}
+		.container-fluid{
+			height: 100%;
+		}
+		.iframe{ max-height: 500px; }
+		.video{
+			min-height: 500px;
+			padding-bottom: 50px ;
+		}
+		.list{
+			max-height: 500px;
+			overflow-y: scroll;
+		}
+	</style>
+	<script src="/assets/firebase.js"></script>
+	<script src="/assets/firebase-firestore.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Ver Pelis Pack</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/edit">Editar</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<h1>Editar</h1>
+<div class="container-fluid">
+	<div class="video row flex-xl-nowrap">
+		<div class="col-md-8 well">
+		<form action="/edit" id="datavideo">
+			<div class="form-group">
+				<label for="urlvideo">Tipo de video</label>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="type" id="type" value="peli" checked="true">
+				  <label class="form-check-label" for="inlineRadio1">Pelicula</label>
+				</div>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="type" id="type" value="serie">
+				  <label class="form-check-label" for="inlineRadio1">Serie</label>
+				</div>
+			</div>
+			<div class="form-group">
+			    <label for="urlinfo">Nombre</label>
+			    <input type="text" class="form-control" name="title" id="title" aria-describedby="nameHelp" placeholder="Introduzca El nombre del título" required>
+			    <small id="nameHelp" class="form-text text-muted">Título del vídeo.</small>
+			</div>
+			<div class="form-group">
+			    <label for="urlvideo">Url Vídeo</label>
+			    <input type="text" class="form-control" name="nameserver" id="nameserver" aria-describedby="emailHelp" placeholder="Introduzca nombre del server" required>
+			    <small id="emailHelp" class="form-text text-muted">Nombre del Servidor donde esta alojado el video.</small>
+			    <input type="url" class="form-control" name="urlvideo" id="urlvideo" aria-describedby="emailHelp" placeholder="Introduzca url del vídeo">
+			    <small id="emailHelp" class="form-text text-muted">Url donde esta alojado el video.</small>
+			</div>
+			<div class="form-group">
+			    <label for="urlinfo">Url Info</label>
+			    <input type="url" class="form-control" name="urlinfo" id="urlinfo" aria-describedby="emailHelp" placeholder="Introduzca url info">
+			    <small id="emailHelp" class="form-text text-muted">Url desde la que se saca la información de la pelicula.</small>
+			</div>
+			<div class="form-group">
+		      <label for="urlfilmafinity">Url Filmafinity</label>
+		      <input type="url" class="form-control" name="urlfilmafinity" id="urlfilmafinity" aria-describedby="emailHelp" placeholder="Introduzca url Filmafinity">
+		      <small id="emailHelp" class="form-text text-muted">Url de Filmafinity (Iframe).</small>
+			</div>
+			<div class="form-group">
+			    <label for="urlimage">Url Imagen</label>
+			    <input type="url" class="form-control" name="urlimage" id="urlimage" aria-describedby="emailHelp" placeholder="Introduzca url Portada">
+			    <small id="emailHelp" class="form-text text-muted">Imagen que se mostrará en la Card.</small>
+			</div>
+			<div class="form-group">
+			    <label for="description">Descripción</label>
+			     <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+			    <small id="emailHelp" class="form-text text-muted">Pequeña descripción que ira en la Card.</small>
+			</div>
+			<button type="submit" class="btn btn-primary mb-2">Enviar</button>
+		</form>
+		</div>
+		<div class="col-md-4 well list">
+		<ul class="lista list-group"></ul>
+
+		</div>
+	</div>
+	<div class="row flex-xl-nowrap">
+		<div class="col-md-12">
+			
+		</div>
+	</div>
+
+</div>
+
+
+<script src="/assets/jquery.min.js"></script>
+<script src="/assets/bootstrap.min.js"></script>
+<script src="/assets/video.min.js"></script>
+<script>
+  // Initialize Firebase
+  
+  // var config = require('config/config.js');
+  // firebase.initializeApp(config);
+</script>
+
+<script type="text/javascript">
+
+function recopilarInfo(form){
+	  var data =  $(form).serializeArray().reduce(function(obj, item) {
+			    obj[item.name] = item.value;
+			    return obj;
+			}, {});
+
+	  	if(data.tile && data.urlinfo && data.urlfilmafinity && data.urlimage && data.description && data.nameserver && data.urlvideo)  {
+	  		return data
+	  	}
+  return false; //don't submit
+}
+// function sendFirestore(data){
+// console.log(data);
+	
+// 	var obj = {
+// 				"title" : data.tile,
+// 				"urlinfo" : data.urlinfo,
+// 				"filmafinity" : data.urlfilmafinity,
+// 				"img" : data.urlimage,
+// 				"description" : data.description,
+// 				"video" : {
+// 				"server" : data.nameserver,
+// 				"url": data.urlvideo
+// 				}
+// 	}
+// 	var db = firebase.firestore();
+// 	console.log(obj);
+// 	db.collection("pelis").add(obj)
+// 	.then(function(docRef) {
+// 	    console.log("Document written with ID: ", docRef.id);
+// 	})
+// 	.catch(function(error) {
+// 	    console.error("Error adding document: ", error);
+// 	});
+// }
+
+$(document).ready(function(){
+	$('#datavideo').submit(function(e){
+		e.preventDefault();
+		var datos = recopilarInfo(this);
+		sendFirestore(datos);
+	})
+
+})
+	
+</script>
+</body>
+</html>

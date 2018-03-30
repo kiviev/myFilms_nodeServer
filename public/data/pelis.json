@@ -1,0 +1,24 @@
+[
+	 {
+		"title" : "Infiltrado",
+		"urlinfo" : "https://www.plusdede.com/peli/the-infiltrator-1",
+		"filmafinity" : "https://www.filmaffinity.com/es/film158409.html",
+		"img" : "https://pics.filmaffinity.com/the_infiltrator-296206595-large.jpg",
+		"description" : "Esta es una descripción",
+		"video" : {
+			"server" : "openload",
+			"url": "https://1fgm8rg.oloadcdn.net/dl/l/pxKh_LOSmw_ewVZu/cdn9JrCH1xo/1n_fi1_7r4_d0+-+GiUpload+5.1+HDrip.avi.mp4?mime=true"
+		}
+	},
+	{
+		"title" : "High-Rise",
+		"urlinfo" : "https://www.plusdede.com/peli/high-rise",
+		"filmafinity" : "https://www.filmaffinity.com/es/film222651.html",
+		"img" : "https://pics.filmaffinity.com/high_rise-384499165-large.jpg",
+		"description" : "Esta es una descripción",
+		"video" : {
+			"server" : "openload",
+			"url": "https://ph2dqp.oloadcdn.net/dl/l/M-o0S6XcOx7sEukS/A8SiEgeEXb4/++High-Rise+CAST?mime=true"
+		}
+	}
+]

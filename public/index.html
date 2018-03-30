@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View | Servidor node</title>
+	<link rel="stylesheet" href="/assets/bootstrap.min.css">
+	<link href="/assets/video-js.min.css" rel="stylesheet">
+	<style>
+		html,body{ height: 100% }
+		.video-js {
+		    position: relative ;
+		    width: 100% ;
+		    /*height: auto !important;*/
+		}
+		.container-fluid{
+			height: 100%;
+		}
+		.iframe{ max-height: 500px; }
+		.video{
+			min-height: 500px;
+			padding-bottom: 50px ;
+		}
+		.list{
+			max-height: 500px;
+			overflow-y: scroll;
+		}
+	</style>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Ver Pelis Pack</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/edit">Editar</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<h1>Este es el servidor node</h1>
+
+<div class="container-fluid">
+	<div class="video row flex-xl-nowrap">
+		<div class="col-md-8 well">
+			<video id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" controls height="500px" preload="auto" data-setup="{'fluid': true}">
+			</video>
+
+		</div>
+		<div class="col-md-4 well list">
+		<ul class="lista list-group"></ul>
+
+		</div>
+	</div>
+	<div class="row flex-xl-nowrap">
+		<div class="col-md-12">
+			<div class="embed-responsive embed-responsive-1by1 iframe">
+			  <iframe id="my-iframe" class="embed-responsive-item" allowfullscreen></iframe>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script src="/assets/jquery.min.js"></script>
+<script src="/assets/bootstrap.min.js"></script>
+<script src="/assets/video.min.js"></script>
+
+
+<script type="text/javascript">
+	function getData(type ,cb){
+		$.getJSON( "/data/" + type + ".json", cb);
+	}
+	function printList(data){
+		var lista = $('.lista');
+		var indice=1;
+		$.each(data , function(index,value){
+			var str = 	'<li class="list-group-item list-group-item-action flex-column align-items-start">' +
+							'<div class="card">' +
+								'<img class="card-img-top" src="' + value.img + '" alt="' + value.title + '">' +
+								'<div class="card-body">' + 
+									'<h5 class="card-title">' + value.title + '</h5>' + 
+									'<p class="card-text">' + value.description + '</p>' +
+								'</div>' +
+									'<div class="card-body">' +
+										'<a href="' + value.urlinfo + '" class="card-link" target="_blank">Encontrada</a>' +
+										'<a href="javascript:void" id="filmafinity_' + indice + '" data-url="' + value.filmafinity + '" class="card-link" target="_blank" onclick="changeFilmafinity(' + indice + ')">FilmAfinity</a>' +
+									'</div>' +
+								'</div>' +
+								'<button id="video_' + indice + '" type="button" class="btn btn-info btn-lg btn-block" data-url="' + value.video.url + '" onclick="changeVideo(' + indice + ')" >Ver</button>' +
+							'</div>' +
+						'</li>';
+
+			lista.append(str);
+			indice++;
+		});
+	}
+
+	function changeVideo(id){
+		var videoTag= $('#my-video');
+		var player = videojs.getPlayer('my-video');
+		player.pause();
+		var buttonVideo = $('#video_' + id);
+		var url = buttonVideo.data('url');
+		var src= {
+			src : url,
+			type: 'video/mp4'
+		}
+		player.src(src);
+
+	}
+	function changeFilmafinity(id){
+		var iframe = $('#my-iframe');
+		var button = $('#filmafinity_' + id);
+		var url = button.data('url');
+		iframe.attr( 'src' , url);
+	}
+	$(document).ready(function(){
+		var data = getData('pelis' , printList);
+	})
+	
+</script>
+</body>
+</html>
