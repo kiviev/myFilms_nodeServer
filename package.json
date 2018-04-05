@@ -4,19 +4,30 @@
   "description": "server local to view streaming videos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node serverExpress.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch --colors"
   },
   "author": "Paco Alba",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "firebase": "^4.12.0",
+    "ip": "^1.1.5",
     "jquery": "^3.3.1",
     "video.js": "^6.7.3"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1"
   }
 }
