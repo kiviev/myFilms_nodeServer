@@ -1,11 +1,11 @@
-html,body {
+/*html,body {
     height: 100%
 }
 
 .video-js {
     position: relative;
     width: 100%;
-    /*height: auto !important;*/
+    height: auto !important;
 }
 
 .container-fluid {
@@ -25,3 +25,11 @@ html,body {
     max-height: 500px;
     overflow-y: scroll;
 }
+*/
+
+.my-modal .modal-content {
+
+    flex-direction: inherit;
+}
+
+

@@ -8,10 +8,12 @@ const views = require('koa-views');
 const koaLogger = require('koa-logger');
 const logger = require('logger.js');
 const bodyParser = require('koa-bodyparser');
+const mongoose = require('mongoose');
 const apiversion = process.env.API_VERSION;
 // routers
 const homeRouter = require('routes/public/home.router');
 const editRouter = require('routes/public/edit.router');
+const myfilmsRouter = require('routes/public/myfilms.router');
 const filmsApiRouter = require('routes/' + apiversion + '/film.router');
 
 
@@ -19,6 +21,13 @@ const app = new Koa();
 const ip = require('ip');
 const port = process.env.PORT;
 
+function onDBready(err) {
+  if (err) {
+    logger.error('Error conection: ', err);
+    process.exit(1);
+  }
+
+}
 app.use(koaLogger()); // loguear las request
 app.use(bodyParser());
 app.use(views(`${__dirname}/views`, {
@@ -46,6 +55,7 @@ app.use(async (ctx, next) => {
 
 app.use(homeRouter.middleware());
 app.use(editRouter.middleware());
+app.use(myfilmsRouter.middleware());
 app.use(filmsApiRouter.middleware());
 
 app.listen(port, (err) => {
@@ -56,7 +66,7 @@ app.listen(port, (err) => {
 });
 
 
-
+mongoose.connect('mongodb://localhost:27017/FilmsAppDb', onDBready)
 
 
 function formatObject(obj){

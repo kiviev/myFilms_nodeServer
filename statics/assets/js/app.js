@@ -1,3 +1,132 @@
+
+async function searchExternalApi(term){
+    const searchMovieURL = apiBaseURL + 'search/movie?language=es-ES&api_key=' + apiKey + '&page=1&include_adult=false&query=' + term;
+            // console.log(searchMovieURL);
+     $.getJSON(searchMovieURL, function (movieSearchResults) {
+        let results = movieSearchResults.results
+        console.log(movieSearchResults.results);
+        if(results.length){
+            results.forEach(async function(res,index){
+                let simpleData = await getDataFilmById(res.id, "#card_" + index, index);
+            })
+        }
+    });
+}
+
+async function getDataFilmById(idapi,selection,index) {
+
+    const searchMovieURL = apiBaseURL + 'movie/' + idapi + '?language=es-ES&append_to_response=videos&api_key=' + apiKey ;
+    // console.log(searchMovieURL);
+    $.getJSON(searchMovieURL,  function (results) {
+        console.log(results);
+        
+        if(results){
+            addCard( createCard(results,index));
+        }
+    })
+}
+
+
+function createCard(data,index){
+    let modal = createModalCard(data,index)
+    return `${modal}
+    <div id="card_${index}" class="col-xs-6 col-sm-4 col-lg-3">    
+            <div class="thumbnail ">
+                <img src="${imageBaseUrl}w300/${data.poster_path}">
+                <div class="caption">
+                <h3>${data.title}</h2>
+                    <p class="flex-text text-muted">${data.overview.length < 50 ? data.overview : data.overview.substr(0, 50) + " ..."}</p>
+                    <p class="flex-text text-muted">${data.vote_average}</p>
+                    <p>
+                    <button class="btn btn-primary" data-idApi="${data.id}" >Anadir</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalCard_${index}" data-idApi="${data.id}" >Mas info</button>
+                    </p>
+                </div>
+                <!-- /.caption -->
+                
+            </div>
+            <!-- /.thumbnail -->
+          </div>`;
+}
+
+
+function createModalCard(data,id){
+    let linkToTrailer = '';
+    let youtubelink = '';
+    let imagelink = `<img src="${imageBaseUrl}w300/${data.poster_path}">`;
+    if (data.videos && data.videos.results.length && data.videos.results[0].site === 'YouTube') {
+        youtubelink = "https://www.youtube.com/watch?v=" + data.videos.results[0].key;
+        linkToTrailer = `<div class="linkToTrailer">
+                                <a href="${youtubelink}" target="_blank">
+                                    <span class="glyphicon glyphicon-play"></span>&nbsp;Play trailer</a>
+                            </div>`;
+        imagelink = `<a href="${youtubelink}" target="_blank">
+                        <img src="${imageBaseUrl}w300/${data.poster_path}">
+                    </a>`
+    }
+
+
+        return `<div class="modal fade my-modal" id="modalCard_${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content col-sm-12">
+                <div class="col-sm-6 moviePosterInModal">
+                    ${imagelink}
+                </div>
+                <div class="col-sm-6 movieDetails">
+                    <div class="movieName">${data.title}</div>
+                    <br>
+                    ${linkToTrailer}
+                    <br>
+                    <div class="release">Fecha del Estreno: ${data.release_date}</div>
+                    <br>
+                    <div class="overview">${data.overview}</div>
+                    <br>
+                    <div class="rating">Rating: ${data.vote_average}/10</div>
+                    <br>
+                    <div class="col-sm-3 btn btn-primary">Añadir</div>
+                    <div class="col-sm-3 btn btn-danger" data-dismiss="modal">Cerrar</div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function addModal(html,selection){
+    $(selection).prepend(html);
+}
+
+function addCard(html){
+    $('#gridCards').append(html)
+}
+
+
+
+
+$(document).ready(function(){
+    $('form.form-inline-search').submit(function (event) {
+        event.preventDefault();
+        //search term is only concerned with what the user inputted
+        //Get input with .val();
+        searchTerm = $('#search_input').val();
+        if(searchTerm){
+            $('#gridCards').html('');
+            searchExternalApi(searchTerm);
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+async function getJson(url,cb){
+    await $.getJSON(url,cb);
+}
+
 function getData(type, cb) {
     $.getJSON("/api/v1/film/", cb);
 }
