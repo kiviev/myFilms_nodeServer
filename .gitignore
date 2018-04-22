@@ -2,6 +2,8 @@
 /config/config.js
 
 
+# dotenv environment variables file
+.env
 
 # Created by https://www.gitignore.io/api/node,linux
 
@@ -77,8 +79,6 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
 
 
 

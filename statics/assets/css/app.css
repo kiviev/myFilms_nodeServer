@@ -1,0 +1,27 @@
+html,body {
+    height: 100%
+}
+
+.video-js {
+    position: relative;
+    width: 100%;
+    /*height: auto !important;*/
+}
+
+.container-fluid {
+    height: 100%;
+}
+
+.iframe {
+    max-height: 500px;
+}
+
+.video {
+    min-height: 500px;
+    padding-bottom: 50px;
+}
+
+.list {
+    max-height: 500px;
+    overflow-y: scroll;
+}

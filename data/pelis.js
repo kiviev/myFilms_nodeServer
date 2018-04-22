@@ -1,4 +1,4 @@
-[
+module.exports =[
   {
     "title": "Oldboy",
     "urlinfo": "https://www.plusdede.com/peli/oldboy",
@@ -7,7 +7,7 @@
     "description": "Esta es una descripción",
     "video": {
       "server": "openload",
-      "url": "https://openload.co/stream/CZQlw5m98C0~1522526142~139.47.0.0~UzB5xj_j?mime=true"
+      "url": "https://1fjiw5z.oloadcdn.net/dl/l/-Yh9WnjGAKZfMip8/VetlCRKkKvg/00111D3FB901.mp4?mime=true"
     }
   },
   {

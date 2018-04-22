@@ -1,0 +1,77 @@
+<!-- edit.ejs -->
+<!DOCTYPE html>
+<html>
+<% include ./partials/head %>
+    <body>
+        <% include ./partials/nav %>
+    <h1>Editar</h1>
+    <div class="container-fluid">
+        <div class="video row flex-xl-nowrap">
+            <div class="col-md-8 well">
+                <form action="/edit" id="datavideo">
+                    <div class="form-group">
+                        <label for="urlvideo">Tipo de video</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="type" value="peli" checked="true">
+                            <label class="form-check-label" for="inlineRadio1">Pelicula</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="type" value="serie">
+                            <label class="form-check-label" for="inlineRadio1">Serie</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlinfo">Nombre</label>
+                        <input type="text" class="form-control" name="title" id="title" aria-describedby="nameHelp" placeholder="Introduzca El nombre del título"
+                            required>
+                        <small id="nameHelp" class="form-text text-muted">Título del vídeo.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlvideo">Url Vídeo</label>
+                        <input type="text" class="form-control" name="nameserver" id="nameserver" aria-describedby="emailHelp" placeholder="Introduzca nombre del server"
+                            required>
+                        <small id="emailHelp" class="form-text text-muted">Nombre del Servidor donde esta alojado el video.</small>
+                        <input type="url" class="form-control" name="urlvideo" id="urlvideo" aria-describedby="emailHelp" placeholder="Introduzca url del vídeo">
+                        <small id="emailHelp" class="form-text text-muted">Url donde esta alojado el video.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlinfo">Url Info</label>
+                        <input type="url" class="form-control" name="urlinfo" id="urlinfo" aria-describedby="emailHelp" placeholder="Introduzca url info">
+                        <small id="emailHelp" class="form-text text-muted">Url desde la que se saca la información de la pelicula.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlfilmafinity">Url Filmafinity</label>
+                        <input type="url" class="form-control" name="urlfilmafinity" id="urlfilmafinity" aria-describedby="emailHelp" placeholder="Introduzca url Filmafinity">
+                        <small id="emailHelp" class="form-text text-muted">Url de Filmafinity (Iframe).</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlimage">Url Imagen</label>
+                        <input type="url" class="form-control" name="urlimage" id="urlimage" aria-describedby="emailHelp" placeholder="Introduzca url Portada">
+                        <small id="emailHelp" class="form-text text-muted">Imagen que se mostrará en la Card.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                        <small id="emailHelp" class="form-text text-muted">Pequeña descripción que ira en la Card.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Enviar</button>
+                </form>
+            </div>
+            <div class="col-md-4 well list">
+                <ul class="lista list-group"></ul>
+
+            </div>
+        </div>
+        <div class="row flex-xl-nowrap">
+            <div class="col-md-12">
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <% include ./partials/footer %>
+</body>
+
+</html>

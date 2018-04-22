@@ -1,0 +1,39 @@
+<!-- index.ejs -->
+<!DOCTYPE html>
+<html>
+<% include ./partials/head %>
+
+
+<body>
+    <% include ./partials/nav %>
+    
+    <h1>Este es el servidor node</h1>
+    
+    <div class="container-fluid">
+        <div class="video row flex-xl-nowrap">
+            <div class="col-md-8 well">
+                <video id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" controls height="500px" preload="auto" data-setup="{'fluid': true}">
+                </video>
+                
+            </div>
+            <div class="col-md-4 well list">
+                <ul class="lista list-inline"></ul>
+                
+            </div>
+        </div>
+        <div class="row flex-xl-nowrap">
+            <div class="col-md-12">
+                <div class="embed-responsive embed-responsive-1by1 iframe">
+                    <iframe id="my-iframe" class="embed-responsive-item" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    
+    
+    <% include ./partials/footer %>
+</body>
+
+</html>
