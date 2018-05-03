@@ -1,5 +1,6 @@
 /* Ejemplo de como crear un servidor con koa */
 require('dotenv').config();
+config = require('config/config');
 const fs =require('fs');
 const path = require('path');
 const Koa = require('koa');
@@ -14,6 +15,7 @@ const apiversion = process.env.API_VERSION;
 const homeRouter = require('routes/public/home.router');
 const editRouter = require('routes/public/edit.router');
 const myfilmsRouter = require('routes/public/myfilms.router');
+const searchExternalRouter = require('routes/public/search.external.router');
 const filmsApiRouter = require('routes/' + apiversion + '/film.router');
 
 
@@ -56,6 +58,7 @@ app.use(async (ctx, next) => {
 app.use(homeRouter.middleware());
 app.use(editRouter.middleware());
 app.use(myfilmsRouter.middleware());
+app.use(searchExternalRouter.middleware());
 app.use(filmsApiRouter.middleware());
 
 app.listen(port, (err) => {
@@ -66,7 +69,7 @@ app.listen(port, (err) => {
 });
 
 
-mongoose.connect('mongodb://localhost:27017/FilmsAppDb', onDBready)
+mongoose.connect(getMongoUri(config.dbuse), onDBready)
 
 
 function formatObject(obj){
@@ -81,4 +84,22 @@ function formatObject(obj){
   			"url": obj.urlvideo
   		}
   	};
+}
+
+
+function getMongoUri(mongoconfig){
+  let conf = config.db[mongoconfig];
+  let uri='';
+  switch (mongoconfig) {
+    case 'mongo':
+      uri = 'mongodb://' + conf.uri + ':' + conf.port + '/' + conf.dbname;
+      break;
+    case 'mongolab':
+      uri = 'mongodb://' + conf.user + ':' + conf.password + '@' + conf.uri + ':' + conf.port + '/' + conf.dbname;
+    default:
+      logger.error('No Uri mongo');
+      break;
+    }
+  logger.info('CONEXION to MONGO', mongoconfig , 'in:', uri)
+    return uri;
 }

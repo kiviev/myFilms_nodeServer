@@ -56,10 +56,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Flexbox Thumbnail Cards
-          <br>
-          <small class="text-info">Responsive Equal Height Boxes for Twitter Bootstrap 3</small>
-        </h1>
+        <h1 class="page-header">Lista de Películas</h1>
       </div>
     </div>
     <!-- /.row -->
@@ -68,29 +65,13 @@
   
   <div class="container">
     <div class="flex-row row">
-  
-      <div class="col-xs-6 col-sm-4 col-lg-3">
-        <div class="thumbnail ">
-          <img src="https://image.tmdb.org/t/p/w300/oburjHqzOrTtDLYbLunKLwUHhk1.jpg">
-          <div class="caption">
-            <h3>Title2</h2>
-              <p class="flex-text text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, vel, quia. Non nostrum, consectetur ipsum doloribus
-                enim maiores a laudantium, odio vel blanditiis id ea dolorum expedita fugit incidunt commodi.</p>
-              <p>
-                <a class="btn btn-primary" href="#">Link</a>
-              </p>
-          </div>
-          <!-- /.caption -->
-        </div>
-        <!-- /.thumbnail -->
-      </div>
-
-
-
-
-  
-
-  
+   <%if (data.films && data.films.length) { %>
+      <% data.films.forEach(function(film,index) { %>
+          <% include ./partials/card-film %>
+      <% }); %>
+    <% }else if (data.video){ %>
+        <% include ./partials/video %>
+    <% } %>
     </div>
     <!-- /.flex-row  -->
   </div>

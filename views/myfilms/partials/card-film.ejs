@@ -1,0 +1,118 @@
+<!-- Modal -->
+<div class="modal fade my-modal" id="modalCard_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content col-sm-12">
+                <div class="col-sm-6 moviePosterInModal">
+               <img src="<%= film.poster_path %>">
+                </div>
+                <div class="col-sm-6 movieDetails">
+                    <div class="movieName"><%= film.title %></div>
+                    <br>
+                    <%if (film.youtubeVideo) { %>
+                      <div class="linkToTrailer">
+                          <a href="<%= film.youtubeVideo %>" target="_blank">
+                              <span class="glyphicon glyphicon-play"></span>&nbsp;Play trailer</a>
+                      </div>
+                    <% } %>
+                    <br>
+                    <div class="release">Fecha del Estreno: <%= film.release_date %>}</div>
+                    <br>
+                    <div class="overview"><%= film.overview %></div>
+                    <br>
+                    <div class="rating">Rating: <%= film.vote_average %>/10</div>
+                    <br>
+                    <a class="col-sm-3 btn btn-primary" data-idApi="<%= film.id %>" href="/myfilms/add/<%= film.id %>">Añadir</a>
+                    <div class="col-sm-3 btn btn-danger" data-dismiss="modal">Cerrar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End Modal -->
+
+<!-- Modal Add -->
+
+<div class="modal fade" id="#modalCardAdd_<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog cascading-modal" role="document">
+
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header primary-color white-text">
+                <h4 class="title">
+                    <i class="fa fa-pencil"></i> Contact form</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+
+                <!-- Material input name -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="_<%= index %>" class="form-control form-control-sm">
+                    <label for="materialFormNameModalEx1_<%= index %>">Your name</label>
+                </div>
+
+                <!-- Material input email -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-lock prefix"></i>
+                    <input type="password" id="materialFormEmailModalEx1_<%= index %>" class="form-control form-control-sm">
+                    <label for="materialFormEmailModalEx1_<%= index %>">Your email</label>
+                </div>
+
+                <!-- Material input subject -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-tag prefix"></i>
+                    <input type="text" id="materialFormSubjectModalEx1_<%= index %>" class="form-control form-control-sm">
+                    <label for="materialFormSubjectModalEx1_<%= index %>">Subject</label>
+                </div>
+
+                <!-- Material textarea message -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-pencil prefix"></i>
+                    <textarea type="text" id="materialFormMessageModalEx1_<%= index %>" class="md-textarea form-control"></textarea>
+                    <label for="materialFormMessageModalEx1_<%= index %>">Your message</label>
+                </div>
+
+                <div class="text-center mt-4 mb-2">
+                    <button class="btn btn-primary">Send
+                        <i class="fa fa-send ml-2"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- End Modal Add -->
+
+<!-- Card -->
+<div id="card_<%= index %>" class="col-xs-6 col-sm-4 col-lg-3">    
+  <div class="thumbnail ">
+      <img src="<%= film.poster_path %>">
+      <div class="caption">
+      <h3><%= film.title %></h2>
+          <p class="flex-text text-muted">
+          <%= film.overview && film.overview.length < 50 ? film.overview : film.overview.substr(0,50) %></p>
+          <p class="flex-text text-muted">Rating: <%= film.vote_average %>/10</p>
+          <p>
+
+          <button class="btn btn-primary" data-toggle="modal" data-target="#modalCardAdd_<%= index %>" data-idApi="<%= film.id %>" >Añadir</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#modalCard_<%= index %>" data-idApi="<%= film.id %>" >Mas info</button>
+          </p>
+      </div>
+      <!-- /.caption -->
+      
+  </div>
+  <!-- /.thumbnail -->
+</div>
+<!-- End Card -->
+
+
+

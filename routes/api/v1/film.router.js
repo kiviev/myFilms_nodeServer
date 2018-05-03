@@ -4,15 +4,15 @@ const logger = require('logger.js')
 const FilmService = require('services/film.service');
 const configApp = require('config/config');
 const router = new KoaRouter({
-    prefix: configApp.apiversionpath +'/film'
+    prefix: configApp.apiversionpath +'/myfilms'
 });
 
 class FilmRouter {
-
+// akira id 149
 
     static async getFilms(ctx) {
         // ctx.body = 'GET getFilms';
-        logger.info('[ROUTER] Get Films');
+        logger.info('[API-FilmRouter] Get Films');
         // let roles;
         // if (ctx.request.query.role) {
         //     roles = ctx.request.query.role.split(',');
@@ -23,26 +23,26 @@ class FilmRouter {
 
     static async getFilmById(ctx) {
         // ctx.body = 'GET FilmsById';
-        logger.info('[ROUTER] Obtaining Film with id ' + ctx.params.id);
-        // ctx.body = await FilmService.getFilmById(ctx.params.id);
+        logger.info('[API-FilmRouter] Obtaining Film with id ' + ctx.params.id);
+        ctx.body = await FilmService.getFilmById(ctx.params.id);
     }
 
     static async createFilm(ctx) {
         // ctx.body = 'POST createFilm';
-        logger.info('[ROUTER] Createing Film with body ' + ctx.request.body);
+        logger.info('[API-FilmRouter] Createing Film with body ' + ctx.request.body);
         // ctx.body = await FilmService.createFilm(ctx.request.body);
 
     }
 
     static async updateFilm(ctx) {
         // ctx.body = 'PUT updateFilm';
-        logger.info('[ROUTER] updating Film with id ' + ctx.params.id);
+        logger.info('[API-FilmRouter] updating Film with id ' + ctx.params.id);
         // ctx.body = await FilmService.updateFilmById(ctx.params.id);
 
     }
     static async deleteFilms(ctx) {
         ctx.body = 'DELETE deleteFilms';
-        logger.info('[ROUTER] deleting Film with id ' + ctx.params.id);
+        logger.info('[API-FilmRouter] deleting Film with id ' + ctx.params.id);
         // ctx.body = await FilmService.deleteFilmById(ctx.params.id);
 
     }
