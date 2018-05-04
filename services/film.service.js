@@ -2,7 +2,7 @@ const logger = require('logger');
 const NotFoundError = require('errors/not-found.error');
 const DuplicateFilmError = require('errors/duplicate-film.error');
 const FilmModel = require('models/film.model');
-
+const FilmSerialize = require('serializers/film.serialize');
 
 class FilmService {
 
@@ -14,11 +14,10 @@ class FilmService {
     }
 
     static async getFilmById(id) {
-        console.log(id);
+        logger.info('[FilmService]@getFilmById');
         let filter= {
             idapi:id
         }
-        logger.info('[FilmService]@getFilmById');
         const film = await FilmModel.find(filter).select("-__v");
         if (!film) {
             throw new NotFoundError('Film not found');
@@ -35,7 +34,7 @@ class FilmService {
         let film = await FilmSerialize.new(body);
         if(film){
             await film.save();
-            return film;
+            return film; 
         }
         else{
             throw new NotFoundError('Create Film not found')

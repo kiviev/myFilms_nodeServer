@@ -1,9 +1,5 @@
-// const fs = require('fs');
-// const stream = require('services/stream.reader.service');
 const KoaRouter = require('koa-router');
-const logger = require('logger.js')
-// const HomeService = require('services/home.service');
-// const configApp = require('config/config');
+const logger = require('logger.js');
 
 const FilmService = require('services/film.service');
 const ApiMovieService = require('services/api.themoviedb.service')
@@ -22,9 +18,7 @@ class MyFimsRouter {
         let data = {
             films,
             config
-        }
-        console.log(films);
-        
+        };        
         await ctx.render('myfilms/index', { data });
     }
     
@@ -42,11 +36,30 @@ class MyFimsRouter {
         await ctx.render('myfilms/add', { config });
     }
 
-    static async getPrepareFilm(ctx) {
+    static async createFilm(ctx) {
         logger.info('[MyFimsRouter]@getFilmsById');
         // akira id 149
-        let body = await ApiMovieService.searchById(parseInt(ctx.params.id));
-        ctx.body = body;
+        let config = { title: 'Film' }
+        let films = await FilmService.getFilms();
+        let film = await ApiMovieService.searchById(parseInt(ctx.params.id));
+        let data = {
+            films: [],
+            config
+        };
+        
+        if(film){
+            
+            film.src = ctx.request.body.file;
+            film.url = ctx.request.body.url;
+            
+            let newFilm = await FilmService.createFilm(film);
+            let data = {
+                films : newFilm ? [newFilm] : [] ,
+                config
+            };   
+            // ctx.body = data.films;
+        }
+        await ctx.render('myfilms/index', { data });
     }
 }
 
@@ -62,7 +75,7 @@ class MyFimsRouter {
 
 router.get('/', MyFimsRouter.getFilms) // ver usuarios
 router.get('/:id', MyFimsRouter.getFilmsById) // ver usuarios por id 
-router.get('/add/:id', MyFimsRouter.getPrepareFilm) // preparar para añadir a bd
+router.post('/add/:id', MyFimsRouter.createFilm) // preparar para añadir a bd
 
 
 
